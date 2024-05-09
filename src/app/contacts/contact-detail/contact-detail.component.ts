@@ -9,7 +9,7 @@ import { Contact } from '../contact.model';
 export class ContactDetailComponent {
   
   Contact = new Contact(
-     1,
+     '1',
     'R. Kent Jackson',
     'jacksonk@byui.edu',
     '208-496-3771',
