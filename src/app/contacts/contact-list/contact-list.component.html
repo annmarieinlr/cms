@@ -15,21 +15,24 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="list-group">
-        <a href="#" 
-        class="list-group-item clearfix" 
-        *ngFor="let contact of contacts">
-            <div class="pull-left">
-                <p class="list-group-item-text">{{ contact.name }}</p>
+            <div class="container">
+                <div class="row">
+                    <cms-contact-item
+                    *ngFor="let contactElem of contacts"
+                    [contact]="contactElem"
+                    (contactSelected)="onContactSelected(contactElem)">
+                </cms-contact-item>
+                </div>
             </div>
-        
-            <span class="pull-right">
-                <img 
-                [src]="contact.imageUrl"
-                alt="{{ contact.name }}" 
-                class="img-responsive" 
-                style="max-height: 50px;">
-            </span>
-        </a>
+    <hr>
+    <!-- <ul class="list-group"></ul>
+            <a
+            class="list-group-item"
+            style="cursor: pointer;"
+            *ngFor="let contact of contacts"
+            >
+        {{ contact.id }}, {{ contact.imageUrl }}
+        </a> -->
     </div>
     </div>
 </div>
