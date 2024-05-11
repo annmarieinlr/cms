@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'cms-header',
@@ -9,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+
 }
+
