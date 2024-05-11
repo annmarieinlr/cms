@@ -10,9 +10,14 @@ export class MessageItemComponent implements OnInit {
 
   @Input() message: Message;
   @Output() messageSelected = new EventEmitter<void>();
+  
 
   constructor() {}
   ngOnInit(): void {
     
   }
+onMessageSelected() {
+  this.messageSelected.emit();
+}
+  
 }
