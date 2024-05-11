@@ -1,4 +1,4 @@
-
+<div class="container"></div>
 <div class="row">
     
     <div class="col-xs-12">
@@ -6,25 +6,22 @@
        Contacts
        <button class="btn btn-secondary pull-right">New Contact</button>    
     </div>
-    <div class="panel-body">
-
-    </div>
+</div>
 </div>
 <hr>
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="list-group">
-            <div class="container">
-                <div class="row">
-                    <cms-contact-item
-                    *ngFor="let contactElem of contacts"
-                    [contact]="contactElem"
-                    (contactSelected)="onContactSelected(contactElem)">
-                </cms-contact-item>
-                </div>
-            </div>
-    <hr>
+    <div class="panel-body">
+                    
+                   
+    <div class="row">
+        <cms-contact-item
+         *ngFor="let contact of contacts"
+        [contact]="contact"
+        (click)="onSelected(contact)">
+        </cms-contact-item>
+        </div>
+    </div>
+
     <!-- <ul class="list-group"></ul>
             <a
             class="list-group-item"
@@ -33,7 +30,5 @@
             >
         {{ contact.id }}, {{ contact.imageUrl }}
         </a> -->
-    </div>
-    </div>
-</div>
+   
 
