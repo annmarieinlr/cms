@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DocumentItemComponent } from './document-item.component';
+import { Document } from '../document.model';
 
 describe('DocumentItemComponent', () => {
   let component: DocumentItemComponent;

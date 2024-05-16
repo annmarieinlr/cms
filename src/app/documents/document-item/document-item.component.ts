@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'cms-document-item',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './document-item.component.css'
 })
 export class DocumentItemComponent {
+  @Input() document: Document;
 
+  constructor() {}
 }
