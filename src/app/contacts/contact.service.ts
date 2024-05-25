@@ -17,4 +17,7 @@ export class ContactService {
     return this.contacts.slice();
   }
     
+  getContact(id:string): Contact | null {
+    return this.contacts.find(contact => contact.id === id);
+  }
 }
