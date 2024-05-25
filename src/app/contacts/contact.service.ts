@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Contact } from './contact.model';
 import { MOCKCONTACTS } from './MOCKCONTACTS'
 
@@ -20,4 +20,6 @@ export class ContactService {
   getContact(id:string): Contact | null {
     return this.contacts.find(contact => contact.id === id);
   }
+
+  contactSelectedEvent = new EventEmitter<Contact>();
 }
