@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Message } from '../message.model';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'cms-message-list',
@@ -7,32 +8,17 @@ import { Message } from '../message.model';
   styleUrl: './message-list.component.css'
 })
 export class MessageListComponent implements OnInit {
-  @Output() addMessageEvent = new EventEmitter<Message>();
-  messages: Message[] = [
-    new Message(
-       '1', 
-      'Stress',
-      'I have more to do than are hours in the day', 
-      'Annmarie'
-     ),
-      new Message(
-        '2', 
-       'Architectural Design',
-       'One of my team leads is not doing their job', 
-       'Annmarie',
-      ), 
-      new Message(
-        '3', 
-       'Food',
-       'Mom, I am hungry AGAIN', 
-       'Neil',
-      )
-  ];
+  messages: Message[] = [];
 
-  constructor() {}
-  ngOnInit() {}
- 
-      onAddMessage(message: Message) {
-      this.messages.push(message);
-      }
+  constructor(private messageService: MessageService) {}
+  ngOnInit() {
+    this.messages = this.messageService.getMessages(); // Initialize messages array
+    this.messageService.messageChangedEvent.subscribe(messages => {
+      this.messages = messages; // Update messages array when it changes
+    })
+  }
+  onMessageSelected(message: Message) {
+    // Implement your logic when a message is selected
+    console.log('Message selected:', message);
+  }
 }
