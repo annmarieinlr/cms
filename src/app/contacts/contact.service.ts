@@ -12,5 +12,9 @@ export class ContactService {
   constructor() { 
     this.contacts = MOCKCONTACTS;
   }
+
+  getContacts(): Contact[] {
+    return this.contacts.slice();
+  }
     
 }
