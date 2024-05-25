@@ -8,8 +8,7 @@ import { DocumentService } from '../document.service';
   styleUrl: './document-list.component.css'
 })
 export class DocumentListComponent {
-  @Output() selectedDocumentEvent = new EventEmitter<Document>();
-  
+    
   documents: Document[] = [];
 
   constructor(private documentService: DocumentService) {}
@@ -19,6 +18,6 @@ export class DocumentListComponent {
   }
   
   onSelectedDocument(document: Document) {
-    this.selectedDocumentEvent.emit(document);
+    this.documentService.documentSelectedEvent.emit(document);
   }
 }
