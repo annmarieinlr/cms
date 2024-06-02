@@ -5,10 +5,7 @@
     </div>
   
   <div class="col-md-4">
-  <cms-document-detail
-  *ngIf="selectedDocument" else pickText
-  [document]="selectedDocument">
-  </cms-document-detail>
+  <router-outlet></router-outlet>
 
   <ng-template #pickText>
     <p>Please select a document</p>
