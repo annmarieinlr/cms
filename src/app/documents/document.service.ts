@@ -39,6 +39,25 @@ export class DocumentService {
     return this.documents.find((d) => d.id === id);
   }
 
+  updateDocument(originalDocument: Document, newDocument: Document) {
+    if (!originalDocument || !newDocument) {
+        return;
+    }
+
+    const pos = this.documents.indexOf(originalDocument);
+    if (pos < 0) {
+        return;
+    }
+
+    newDocument.id = originalDocument.id;
+    this.documents[pos] = newDocument;
+
+    // Notify subscribers about changes to the documents list
+    const documentsListClone = this.documents.slice();
+    this.documentListChangedEvent.next(documentsListClone);
+}
+
+
   deleteDocument(document: Document) {
     if (!document) return;
     const pos = this.documents.indexOf(document);
