@@ -1,6 +1,14 @@
 import {Contact} from './contact.model';
 
 export const MOCKCONTACTS: Contact[] = [
+  {
+    id: '1000',
+    name: 'Annmarie',
+    email: 'barzeer@byui.edu',
+    phone: '208-496-3768',
+    imageUrl: '../../assets/images/barzeer.jpg',
+    group: null
+  },
   // individual contacts
   // index 0
   {
@@ -271,6 +279,15 @@ export const MOCKCONTACTS: Contact[] = [
     {
       id: '13',
       name: 'Steven Rigby',
+      email: 'rigbys@byui.edu',
+      phone: '208-496-3774',
+      imageUrl: '../../assets/images/rigbys.jpg',
+      group: null
+    },
+
+    {
+      id: '1000',
+      name: 'Annmarie ',
       email: 'rigbys@byui.edu',
       phone: '208-496-3774',
       imageUrl: '../../assets/images/rigbys.jpg',
