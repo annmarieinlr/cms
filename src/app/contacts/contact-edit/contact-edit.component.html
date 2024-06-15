@@ -1,6 +1,7 @@
+
 <div class="panel panel-default">
     <div class="panel-body">
-      <form id="contact-edit">
+      <form id="contact-edit" (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div class="row">
           <div class="col-sm-12 form-group">
             <label for="name">Name:</label>
@@ -9,7 +10,10 @@
               id="name"
               class="form-control required"
               size="120"
-              max="120">
+              max="120"
+              name="name"
+              ngModel
+              required>
           </div>
         </div>
   
@@ -21,7 +25,15 @@
               id="email"
               class="form-control required"
               size="120"
-              max="255">
+              max="255"
+              name="email"
+              ngModel
+              required
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+              <!-- Error message for email field -->
+              <div class="error-message" *ngIf="f.controls['email'].invalid && (f.controls['email'].touched || f.submitted)">
+                  Enter a valid Email address.
+              </div>
           </div>
         </div>
   
@@ -33,7 +45,15 @@
               id="phone"
               class="form-control invalid"
               size="150"
-              max="255">
+              max="255"
+              name="phone"
+              ngModel
+              required
+              pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*">
+              <!-- Error message for phone field -->
+              <div class="error-message" *ngIf="f.controls['phone'].invalid && (f.controls['phone'].touched || f.submitted)">
+                  Enter a valid phone number.
+              </div>
   
           </div>
         </div>
@@ -68,11 +88,19 @@
   
           </div>
         </div>
-  
+        
+        <!-- Div for error message -->
+        <div class="row" *ngIf="f.controls['name'].invalid && (f.controls['name'].touched || f.submitted) || f.controls['email'].invalid && (f.controls['email'].touched || f.submitted)">
+          <div class="col-sm-12">
+              <div class="alert alert-danger">
+                  The Name and Email fields are required.
+              </div>
+          </div>
+      </div>
   
         <div class="row">
           <div class="col-xs-12 btn-toolbar">
-            <button class="btn btn-success" type="submit">Save</button>
+            <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save</button>
             <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
           </div>
         </div>
