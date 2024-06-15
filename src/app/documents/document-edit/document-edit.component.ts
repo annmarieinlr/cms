@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { DocumentService } from '../document.service';
+import { Document } from '../document.model';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'cms-document-edit',
@@ -7,22 +10,62 @@ import { NgForm } from '@angular/forms';
   styleUrl: './document-edit.component.css'
 })
 export class DocumentEditComponent implements OnInit {
-  
-
-  originalDocument: Document;
   document: Document;
+  originalDocument: Document;
   editMode: boolean = false;
+  id: string; 
+
+  constructor(
+    private documentService: DocumentService,
+    private router: Router,
+    private route: ActivatedRoute) {
+      
+    }
   
-  onCancel() {
-    console.log("cancel");
-  }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+    this.route.params.subscribe (
+      (params: Params) => {
+        this.id = params['id'];
+      
+      if (this.id === undefined || this.id === null) {
+        this.editMode = false;
+        return;
+      }
+
+    this.originalDocument = this.documentService.getDocument(this.id);
+
+      if (this.originalDocument === undefined || 
+        this.originalDocument === null) {
+        return;
+      }
+
+      this.editMode = true;
+      //clone the document
+      this.document = JSON.parse(JSON.stringify(this.originalDocument));
+      //this.document = { ...this.originalDocument }; // cloning the document
+      }); 
+        
+    }
+      
+    
+  
 
   onSubmit(form: NgForm) {
     const value = form.value;
-    
+    const newDocument = new Document(null, value.name, value.description, value.url)
+
+    if (this.editMode) {
+      this.documentService.updateDocument(this.originalDocument, newDocument);
+    }
+    else {
+      this.documentService.addDocument(newDocument);
+    }
+    this.router.navigate(['/documents'], { relativeTo: this.route });
   }
+
+  onCancel() {
+		this.router.navigate(['/documents'], { relativeTo: this.route });
+	}
+
 }
