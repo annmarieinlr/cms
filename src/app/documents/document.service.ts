@@ -33,7 +33,10 @@ export class DocumentService {
 
     // Notify subscribers about changes to the documents list
     const documentsListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentsListClone);
+    //this.documentListChangedEvent.next(documentsListClone);
+
+     // Call storeDocuments() to save the updated documents list
+     this.storeDocuments();
   }
 
   // getDocuments(): Document[] {
@@ -60,7 +63,7 @@ export class DocumentService {
     return this.documents.find((d) => d.id === id);
   }
 
- 
+   
   storeDocuments() {
     // Convert the documents array into a string format
     const documentsJson = JSON.stringify(this.documents);
@@ -91,7 +94,8 @@ export class DocumentService {
 
     // Notify subscribers about changes to the documents list
     const documentsListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentsListClone);
+     // Call storeDocuments() to save the updated documents list
+     this.storeDocuments();
 }
 
 deleteDocument(document: Document) {
@@ -108,7 +112,8 @@ deleteDocument(document: Document) {
 
   // Notify subscribers about changes to the documents list
   const documentsListClone = this.documents.slice();
-  this.documentListChangedEvent.next(documentsListClone);
+   // Call storeDocuments() to save the updated documents list
+   this.storeDocuments();
 }
 
   getMaxId(): number {

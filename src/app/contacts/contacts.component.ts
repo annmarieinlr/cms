@@ -16,8 +16,15 @@ export class ContactsComponent implements OnInit, OnDestroy {
   constructor(private contactService: ContactService ){}
 
   ngOnInit(): void {
-    this.contacts = this.contactService.getContacts(); // Initialize contacts list
-    
+    this.contactService.getContacts() // Initialize contacts list
+    .subscribe(
+      (contacts: Contact[]) => {
+        this.contacts = contacts;
+      },
+      (error) => {
+        console.error('Error fetching contacts:', error);
+  
+      });
     // Subscribe to contactListChangedEvent to update contacts list
     this.subscription = this.contactService.contactListChangedEvent.subscribe((contacts: Contact[]) => {
       this.contacts = contacts;
