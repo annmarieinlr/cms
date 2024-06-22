@@ -1,18 +1,22 @@
-import { Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
 import  { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 import { Document } from './document.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentService {
+  
+  documents: Document[] = [];
   documentListChangedEvent = new Subject<Document[]>();
   maxDocumentId: number;
 
-  documents: Document[] = MOCKDOCUMENTS;
+  //documents: Document[] = MOCKDOCUMENTS;
 
-  constructor() { 
+  constructor(private http: HttpClient) { 
     this.documents = MOCKDOCUMENTS;
     this.maxDocumentId = this.getMaxId();
   }
@@ -31,13 +35,32 @@ export class DocumentService {
     this.documentListChangedEvent.next(documentsListClone);
   }
 
-  getDocuments(): Document[] {
-    return this.documents.slice();
-  }
+  // getDocuments(): Document[] {
+  //   return this.documents.slice();
+  // }
 
+  getDocuments(): Observable<Document[]> {
+    return this.http.get<Document[]>('your-firebase-database-url/documents.json')
+      .pipe(
+        tap((documents: Document[]) => {
+          this.documents = documents;
+          this.maxDocumentId = this.getMaxId();
+          this.documents.sort((a, b) => a.name.localeCompare(b.name)); // Sort by name
+          const documentsListClone = this.documents.slice();
+          this.documentListChangedEvent.next(documentsListClone);
+        }),
+        catchError((error) => {
+          console.error('Error fetching documents:', error);
+          return throwError(error);
+        })
+      );
+  }
   getDocument(id: string): Document {
     return this.documents.find((d) => d.id === id);
   }
+
+ 
+  
 
   updateDocument(originalDocument: Document, newDocument: Document) {
     if (!originalDocument || !newDocument) {
@@ -91,3 +114,4 @@ deleteDocument(document: Document) {
 //   documentSelectedEvent = new EventEmitter<Document>();
 //   documentChangedEvent = new EventEmitter<Document[]>();
 // }
+
