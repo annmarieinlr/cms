@@ -11,6 +11,7 @@ import { ContactService } from '../contact.service';
 })
 export class ContactListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
+  term: string;
  
   contacts: Contact[] = []; //initialze empty contacts array
 
@@ -23,7 +24,9 @@ export class ContactListComponent implements OnInit, OnDestroy {
         
       });
     }
-  
+    search(value: string) {
+      this.term = value;
+    }
     ngOnDestroy() {
       // Unsubscribe from the subscription
       this.subscription.unsubscribe();
