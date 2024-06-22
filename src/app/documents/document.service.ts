@@ -13,6 +13,7 @@ export class DocumentService {
   documents: Document[] = [];
   documentListChangedEvent = new Subject<Document[]>();
   maxDocumentId: number;
+  private firebaseUrl = 'https://cmsproject-64c63-default-rtdb.firebaseio.com/documents.json';
 
   //documents: Document[] = MOCKDOCUMENTS;
 
@@ -60,7 +61,20 @@ export class DocumentService {
   }
 
  
-  
+  storeDocuments() {
+    // Convert the documents array into a string format
+    const documentsJson = JSON.stringify(this.documents);
+
+    // Create a new HttpHeaders object that sets the Content-Type
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    // Call the http service’s put() method to send the document list to your Firebase database server
+    this.http.put(this.firebaseUrl, documentsJson, {headers: headers})
+      .subscribe(() => {
+        // Emit the documentListChangedEvent with a cloned copy of the documents array
+        this.documentListChangedEvent.next([...this.documents]);
+      });
+  }
 
   updateDocument(originalDocument: Document, newDocument: Document) {
     if (!originalDocument || !newDocument) {
