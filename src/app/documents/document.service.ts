@@ -40,7 +40,7 @@ export class DocumentService {
   // }
 
   getDocuments(): Observable<Document[]> {
-    return this.http.get<Document[]>('your-firebase-database-url/documents.json')
+    return this.http.get<Document[]>('https://cmsproject-64c63-default-rtdb.firebaseio.com/documents.json')
       .pipe(
         tap((documents: Document[]) => {
           this.documents = documents;
