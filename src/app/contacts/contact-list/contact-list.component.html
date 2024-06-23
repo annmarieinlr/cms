@@ -35,7 +35,8 @@
                    
     <div class="row">
         <cms-contact-item
-        *ngFor="let contact of contacts | contactsFilter: 'term'"
+        *ngFor="let contact of contacts | contactsFilter: searchBox.value"
+
         [contact]="contact"
         (click)="onSelected(contact)">
         </cms-contact-item>
