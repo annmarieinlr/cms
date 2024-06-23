@@ -86,7 +86,7 @@ export class ContactService {
 
   storeContacts() {
 
-  //    // Map contacts to include imageUrl property if it exists
+     // Map contacts to include imageUrl property if it exists
   // const contactsToStore = this.contacts.map(contact => ({
   //   ...contact,
   //   imageUrl: contact.imageUrl || '' // Default to empty string if imageUrl is undefined
