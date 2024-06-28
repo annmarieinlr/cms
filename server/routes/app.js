@@ -13,4 +13,5 @@ app.use((req, res, next) => {
     res.send('Hello from express');
 });
 
+//app.use(express.static(path.join(__dirname, 'dist/cms')));
 module.exports = app;

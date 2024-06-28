@@ -1,7 +1,20 @@
+const express = require('express');
 const http = require('http');
-const app = require('./routes/app');
+const app = require('./server/routes/app.js');
 const debug = require('debug')('node-angular');
+const path = require('path');
 
+
+//const app = express();
+
+// Serve static files from the 'dist/cms' directory
+app.use(express.static(path.join(__dirname, 'dist/cms')));
+
+// Handle all other routes by serving the Angular app's 'index.html' file
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/cms/index.html'));
+  });
+  
 //this makes sure the port is a valid number
 const narmalizePort = val => {
     var port = parseInt(val, 10);
@@ -59,3 +72,5 @@ server.on('listening', onListening);
 // starts the server
 server.listen(port);
 
+//use cms??
+//app.use(express.static(path.join(__dirname, 'dist/cms')));
