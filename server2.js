@@ -6,14 +6,18 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app2');
 
 // ... ADD CODE TO IMPORT YOUR ROUTING FILES HERE ... 
 
+var index = require('./server/routes/app2');
+const messageRoutes = require('./server/routes/messages');
+const contactRoutes = require('./server/routes/contacts');
+const documentRoutes = require('./server/routes/documents');
 
-var app2 = express(); // create an instance of express
+// Create an instance of express
+var app2 = express(); 
 
 // Tell express to use the following parsers for POST data
 app2.use(bodyParser.json());
@@ -46,6 +50,9 @@ app.use(express.static(path.join(__dirname, 'dist/cms/browser')));
 app.use('/', index);
 
 // ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
+app.use('/messages', messageRoutes);
+app.use('/contacts', contactRoutes);
+app.use('/documents', documentRoutes);
 
 // Tell express to map all other non-defined routes back to the index page
 app2.get('*', (req, res) => {
