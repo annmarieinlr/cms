@@ -7,7 +7,8 @@ const { name } = require('ejs');
 router.get('/', async (req, res, next) => {
     try {
       // Call the contacts model find() method to get all contacts in the collection
-      const contacts = await Contact.find();
+      const contacts = await Contact.find()
+      .populate('group');
   
       // Return response status 200 and a JSON object containing the list of contacts
       res.status(200).json(contacts);
