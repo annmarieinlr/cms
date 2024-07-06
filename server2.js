@@ -1,4 +1,5 @@
 // Get dependencies
+var mongoose = require('mongoose');
 var express = require('express');
 var path = require('path');
 var http = require('http');
@@ -6,15 +7,29 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
+// // Connect to the database
+// mongoose.connect('mongodb://localhost:27017/cms', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// })
+// .then(() => {
+//   console.log('Connected to database!');
+// })
+// .catch((err) => {
+//   console.error('Connection failed: ' + err);
+// });
+
+
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app2');
 
 // ... ADD CODE TO IMPORT YOUR ROUTING FILES HERE ... 
 
 var index = require('./server/routes/app2');
-const messageRoutes = require('./server/routes/messages');
-const contactRoutes = require('./server/routes/contacts');
-const documentRoutes = require('./server/routes/documents');
+const messageRoutes = require('./server/models/message');
+const contactRoutes = require('./server/models/contact');
+const documentRoutes = require('./server/models/document');
 
 // Create an instance of express
 var app2 = express(); 
