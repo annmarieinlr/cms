@@ -20,7 +20,13 @@ var logger = require('morgan');
 //   console.error('Connection failed: ' + err);
 // });
 
-
+mongoose.connect('mongodb+srv://annmarieinlr:q0E4b0DTsAitmfZc@cluster0.huxjjlj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+.then(() => {
+  console.log('Connected to database!');
+  // app2.listen(3000), () => {
+  //   console.log('Server is running on port 3000');
+  // };
+});
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app2');
 

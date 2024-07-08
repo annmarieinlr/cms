@@ -28,7 +28,7 @@ export class DocumentService {
       return;
     }
     //make sure id of the new Document id empty
-    document.id = '';
+    //document._id = '';
 
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
@@ -105,7 +105,7 @@ export class DocumentService {
     }
     //set the id of the new Document to the id of the old Document
     newDocument.id = originalDocument.id;
-    newDocument._id = originalDocument._id;
+    
 
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
