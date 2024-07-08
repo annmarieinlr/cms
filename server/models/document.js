@@ -1,11 +1,24 @@
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 
-const documentSchema = mongoose.Schema({
-    id: { type: String, required: true },
+const documentSchema = new mongoose.Schema({
+    _id: { type: String, required: true, default: uuidv4},
     name: { type: String, required: true },
     description: { type: String },
     url: { type: String },
-    children: { type: Array, ref: 'Document'}
- });
+    description: { type: Array, ref: 'Document'},
+    children: [{ type: mongoose.Schema.Types.Mixed }],
 
+ },
+{ _id: false});
+
+const childDocumentSchema = new mongoose.Schema({
+    _id: { type: String, required: true, default: uuidv4},
+    name: { type: String, required: true },
+    description: { type: String },
+    url: { type: String },
+    description: { type: Array, ref: 'Document'},
+    children: [childDocumentSchema],
+ 
+});
 module.exports = mongoose.model('Document', documentSchema);

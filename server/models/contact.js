@@ -1,8 +1,9 @@
 const { name } = require('ejs');
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 
 const contactSchema = mongoose.Schema({ 
-    id: { type: String, required: true },
+    _id: { type: String, required: true, default: uuidv4},
     name: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String },
